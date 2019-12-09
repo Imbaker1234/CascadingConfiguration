@@ -1,0 +1,17 @@
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\HierarchicalConfigurationTests.dll
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\HierarchicalConfigurationTests.pdb
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\Castle.Core.dll
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\HeirachicalConfiguration.dll
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\Moq.dll
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\nunit.framework.dll
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\Sample.dll
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\HeirachicalConfiguration.pdb
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\Sample.pdb
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\Castle.Core.xml
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\Moq.xml
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\bin\Debug\nunit.framework.xml
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\obj\Debug\HierarchicalConfigurationTests.csprojAssemblyReference.cache
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\obj\Debug\HierarchicalConfigurationTests.csproj.CoreCompileInputs.cache
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\obj\Debug\HierarchicalConfigurationTests.csproj.CopyComplete
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\obj\Debug\HierarchicalConfigurationTests.dll
+C:\Users\Imbaker1234\source\repos\HierarchicalConfigurationTests\obj\Debug\HierarchicalConfigurationTests.pdb

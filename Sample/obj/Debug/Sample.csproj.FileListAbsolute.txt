@@ -7,3 +7,12 @@ C:\Users\Imbaker1234\source\repos\Sample\obj\Debug\Sample.csproj.CoreCompileInpu
 C:\Users\Imbaker1234\source\repos\Sample\obj\Debug\Sample.csproj.CopyComplete
 C:\Users\Imbaker1234\source\repos\Sample\obj\Debug\Sample.dll
 C:\Users\Imbaker1234\source\repos\Sample\obj\Debug\Sample.pdb
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\bin\Debug\Sample.dll
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\bin\Debug\Sample.pdb
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\bin\Debug\HeirachicalConfiguration.dll
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\bin\Debug\HeirachicalConfiguration.pdb
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.csprojAssemblyReference.cache
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.csproj.CoreCompileInputs.cache
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.csproj.CopyComplete
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.dll
+C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.pdb

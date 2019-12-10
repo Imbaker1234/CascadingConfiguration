@@ -4,3 +4,9 @@ C:\Users\Imbaker1234\source\repos\HeirachicalConfiguration\obj\Debug\Heirachical
 C:\Users\Imbaker1234\source\repos\HeirachicalConfiguration\obj\Debug\HeirachicalConfiguration.csproj.CoreCompileInputs.cache
 C:\Users\Imbaker1234\source\repos\HeirachicalConfiguration\obj\Debug\HeirachicalConfiguration.dll
 C:\Users\Imbaker1234\source\repos\HeirachicalConfiguration\obj\Debug\HeirachicalConfiguration.pdb
+C:\Users\Imbaker1234\source\repos\HCFG\HeirachicalConfiguration\obj\Debug\HeirachicalConfiguration.csprojAssemblyReference.cache
+C:\Users\Imbaker1234\source\repos\HCFG\HeirachicalConfiguration\obj\Debug\HeirachicalConfiguration.csproj.CoreCompileInputs.cache
+C:\Users\Imbaker1234\source\repos\HCFG\HeirachicalConfiguration\obj\Debug\HeirachicalConfiguration.dll
+C:\Users\Imbaker1234\source\repos\HCFG\HeirachicalConfiguration\obj\Debug\HeirachicalConfiguration.pdb
+C:\Users\Imbaker1234\source\repos\HCFG\HeirachicalConfiguration\bin\Debug\HeirachicalConfiguration.dll
+C:\Users\Imbaker1234\source\repos\HCFG\HeirachicalConfiguration\bin\Debug\HeirachicalConfiguration.pdb

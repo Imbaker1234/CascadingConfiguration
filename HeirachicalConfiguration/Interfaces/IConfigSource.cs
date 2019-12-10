@@ -15,5 +15,7 @@ namespace HeirachicalConfiguration
         int Priority { get; set; }
 
         T SourceConfig();
+
+        T TryParse<T>(string inValue);
     }
 }

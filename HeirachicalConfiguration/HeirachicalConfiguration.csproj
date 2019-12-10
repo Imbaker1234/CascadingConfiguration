@@ -44,6 +44,7 @@
     <Compile Include="Base-Classes\Config.cs" />
     <Compile Include="Base-Classes\ConfigProvider.cs" />
     <Compile Include="Base-Classes\ConfigSource.cs" />
+    <Compile Include="Base-Classes\DatabaseConfigSource.cs" />
     <Compile Include="Base-Classes\TextFileConfigSource.cs" />
     <Compile Include="Interfaces\IConfigProvider.cs" />
     <Compile Include="Interfaces\IConfigSource.cs" />

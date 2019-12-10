@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Reflection;
 using HeirachicalConfiguration.Interfaces;
 
@@ -24,6 +26,14 @@ namespace HeirachicalConfiguration
             Priority = priority;
         }
 
+        public T TryParse<T>(string inValue)
+        {
+            TypeConverter converter =
+                TypeDescriptor.GetConverter(typeof(T));
+
+            return (T)converter.ConvertFromString(null,
+                CultureInfo.InvariantCulture, inValue);
+        }
         public void SetPrimitive(PropertyInfo property, T product, string value)
         {
             if (property.PropertyType == typeof(bool))

@@ -10,9 +10,6 @@ namespace HeirachicalConfiguration
     {
         public string FilePath { get; set; }
         public char Delimiter { get; set; }
-        public T Config { get; set; }
-        public IConfigProvider<T> Provider { get; set; }
-        public int Priority { get; set; }
 
         public TextFileConfigSource(string filePath, char delimiter, T config, IConfigProvider<T> provider, int priority)
         {

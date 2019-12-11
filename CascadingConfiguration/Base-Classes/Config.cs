@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Reflection;
 using System.Text;
-using CascadingConfiguration;
 
-namespace Sample
+namespace CascadingConfiguration
 {
-    public class SampleConfig : IConfig
+    public class Config : IConfig
     {
-        public bool SampleBoolProp { get; set; }
-        public string SampleStringProp { get; set; }
-        public int SampleIntProp { get; set; }
-        public double SampleDoubleProp { get; set; }
-
         public override string ToString()
         {
             var sb = new StringBuilder();

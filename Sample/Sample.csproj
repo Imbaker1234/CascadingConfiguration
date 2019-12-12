@@ -45,7 +45,7 @@
     <Compile Include="SampleConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HeirachicalConfiguration\CascadingConfiguration.csproj">
+    <ProjectReference Include="..\CascadingConfiguration\CascadingConfiguration.csproj">
       <Project>{01B4F3C0-A65E-43F3-B788-805DB1CCA433}</Project>
       <Name>CascadingConfiguration</Name>
     </ProjectReference>

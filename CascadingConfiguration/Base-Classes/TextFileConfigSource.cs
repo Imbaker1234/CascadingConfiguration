@@ -11,29 +11,33 @@ namespace CascadingConfiguration
         public string FilePath { get; set; }
         public char Delimiter { get; set; }
 
-        public TextFileConfigSource(string filePath, char delimiter, T config, IConfigProvider<T> provider, int priority)
+        public TextFileConfigSource(string filePath, char delimiter, int priority)
         {
-            Config = Config == null ? new T() : config;
-            Provider = provider;
             Priority = priority;
             FilePath = filePath;
             Delimiter = delimiter;
         }
 
-        public override T SourceConfig()
+        public override void PopulateConfig(IConfigProvider<T> configProvider)
         {
-            var textConfig = ConfigToDictionary(FilePath, Delimiter);
+            var sourceInfo = ConfigToDictionary(FilePath, Delimiter);
 
-            foreach (var entry in textConfig)
+            foreach (var unsetProperty in configProvider.UnconfiguredProperties)
             {
-                var key = entry.Key;
-                var value = entry.Value;
+                string key = unsetProperty;
+                string value;
+                if (sourceInfo[unsetProperty] == null)
+                {
+                    value = sourceInfo[unsetProperty];
+                }
+                else
+                {
+                    continue;
+                }
 
                 try
                 {
-                    var property = typeof(T).GetProperty(key);
-
-                    Config.SetProperty(property, value);
+                    configProvider.SetProperty(key, value);
                 }
                 catch (NullReferenceException nre)
                 {
@@ -45,13 +49,12 @@ namespace CascadingConfiguration
                     {
                         sb.Append($"{property}{Environment.NewLine}");
                     }
+
                     throw new NullReferenceException(
                         $"{typeof(IConfig)}.{key} is not a valid property in this configuration. Valid properties are: {sb}");
                 }
             }
-
-            return Config;
-            }
+        }
 
         public Dictionary<string, string> ConfigToDictionary(string filePath, char delimiter = '=')
         {
@@ -65,6 +68,7 @@ namespace CascadingConfiguration
 
                 product.Add(key, value);
             }
+
             return product;
         }
     }

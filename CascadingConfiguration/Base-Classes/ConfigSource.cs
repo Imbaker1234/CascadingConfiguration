@@ -1,29 +1,25 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Reflection;
-using CascadingConfiguration.Interfaces;
+using System.Collections.Generic;
 
 namespace CascadingConfiguration
 {
-    public abstract class ConfigSource<T> : IConfigSource<T> where T : IConfig, new()
+    public abstract class ConfigSource<T> : IComparable, IConfigSource<T> where T : IConfig, new()
     {
-        public T Config { get; set; }
-        public IConfigProvider<T> Provider { get; set; }
         public int Priority { get; set; }
-        public abstract T SourceConfig();
-
-        protected ConfigSource()
+        public abstract void PopulateConfig(IConfigProvider<T> configProvider);
+        protected ConfigSource(int priority)
         {
-
+            Priority = priority;
         }
 
-        protected ConfigSource(T config, IConfigProvider<T> provider, int priority)
+        public int CompareTo(object obj)
         {
-            //Create a new config if null.
-            Config = Config == null ? new T() : config;
-            Provider = provider;
-            Priority = priority;
+            if (obj is null)
+                return 1;
+
+            var that = obj as IConfigSource<T>;
+
+            return this.Priority.CompareTo(that.Priority);
         }
     }
 }

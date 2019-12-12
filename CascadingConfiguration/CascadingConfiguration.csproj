@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base-Classes\AppConfigSource.cs" />
     <Compile Include="Base-Classes\Config.cs" />
-    <Compile Include="Base-Classes\ConfigExtensions.cs" />
     <Compile Include="Base-Classes\ConfigProvider.cs" />
     <Compile Include="Base-Classes\ConfigSource.cs" />
-    <Compile Include="Base-Classes\KVPDatabaseConfigSource.cs" />
+    <Compile Include="Base-Classes\KvpDBConfigSource.cs" />
+    <Compile Include="Base-Classes\SingleRecordDBConfigSource.cs" />
+    <Compile Include="Base-Classes\SpecificDBConfigSource.cs" />
     <Compile Include="Base-Classes\TextFileConfigSource.cs" />
     <Compile Include="Interfaces\IConfigProvider.cs" />
     <Compile Include="Interfaces\IConfigSource.cs" />

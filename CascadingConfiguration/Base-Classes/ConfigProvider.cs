@@ -133,6 +133,10 @@ namespace CascadingConfiguration
             //Assign
             property.SetValue(this, convertedValue); // Set the converted value
 
+            //Due to many primitives having default values simply null checking is not
+            //sufficient to determine whether a property has been set, has been set
+            //with the default value, or has not been set. 
+
             UnconfiguredProperties.Remove(property.Name); // Remove property as unset.
             ConfiguredProperties.Add(property.Name); // and mark it as set.
         }

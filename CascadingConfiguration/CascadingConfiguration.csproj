@@ -45,6 +45,7 @@
     <Compile Include="Base-Classes\Config.cs" />
     <Compile Include="Base-Classes\ConfigProvider.cs" />
     <Compile Include="Base-Classes\ConfigSource.cs" />
+    <Compile Include="Base-Classes\DBConfigSource.cs" />
     <Compile Include="Base-Classes\KvpDBConfigSource.cs" />
     <Compile Include="Base-Classes\SingleRecordDBConfigSource.cs" />
     <Compile Include="Base-Classes\SpecificDBConfigSource.cs" />

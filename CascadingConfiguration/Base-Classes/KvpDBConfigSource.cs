@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.Linq;
+using System.Linq;
 
 namespace CascadingConfiguration
 {
@@ -20,7 +22,7 @@ namespace CascadingConfiguration
         //TODO Implement builder syntax for this
         //var dbConfig = new KvpDBConfigSource.ConnectedBy("").usingTable("Table").toGetValuesIn("ValueColumn").IdentifiedBy("IdColumn")
         public string ConnectionString { get; set; }
-        public string ConfigTable { get; set; }
+        public string Table { get; set; }
         public string ValueColumn { get; set; }
         public string IdColumn { get; set; }
 
@@ -31,14 +33,14 @@ namespace CascadingConfiguration
         /// <returns></returns>
         public override void PopulateConfig(IConfigProvider<T> configProvider)
         {
-            using (var cnn = new SqlConnection(ConnectionString))
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
             {
                 foreach (var property in configProvider.UnconfiguredProperties)
                 {
                     string key = property;
 
-                    var sql = $"SELECT {ValueColumn}" +
-                              $"FROM {ConfigTable}" +
+                    string sql = $"SELECT {ValueColumn}" +
+                              $"FROM {Table}" +
                               $"WHERE {IdColumn} = '{key}'";
 
                     var command = new SqlCommand(sql, cnn);

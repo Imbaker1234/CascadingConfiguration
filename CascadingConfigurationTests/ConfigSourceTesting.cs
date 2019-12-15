@@ -53,5 +53,10 @@ namespace HierarchicalConfigurationTests
 //            config.SampleDoubleProp.Should().Be(double.Parse(doubleValue));
 //            config.SampleStringProp.Should().Be(stringValue);
 //        }
+
+        [Test]
+        public void ValuesWhichEqualNullWillBeNull()
+        {
+        }
     }
 }

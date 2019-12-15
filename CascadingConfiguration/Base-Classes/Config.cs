@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text;
 
 namespace CascadingConfiguration
 {
-    public class Config : IConfig
+    public abstract class Config : IConfig
     {
         public override string ToString()
         {
@@ -14,6 +15,11 @@ namespace CascadingConfiguration
             }
 
             return sb.ToString();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged
+        {
+            //TODO DO THE STUFF HERE!!!!
         }
     }
 }

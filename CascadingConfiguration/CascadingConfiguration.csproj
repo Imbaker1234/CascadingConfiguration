@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,18 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base-Classes\AppConfigSource.cs" />
+    <Compile Include="Classes\ConfigSource\AppConfigSource.cs" />
     <Compile Include="Base-Classes\Config.cs" />
     <Compile Include="Base-Classes\ConfigProvider.cs" />
-    <Compile Include="Base-Classes\ConfigSource.cs" />
-    <Compile Include="Base-Classes\DBConfigSource.cs" />
-    <Compile Include="Base-Classes\KvpDBConfigSource.cs" />
-    <Compile Include="Base-Classes\SingleRecordDBConfigSource.cs" />
-    <Compile Include="Base-Classes\SpecificDBConfigSource.cs" />
-    <Compile Include="Base-Classes\TextFileConfigSource.cs" />
+    <Compile Include="Classes\ConfigSource\ConfigSource.cs" />
+    <Compile Include="Classes\ConfigSource\Database\DBConfigSource.cs" />
+    <Compile Include="Classes\Database.cs" />
+    <Compile Include="Classes\ConfigSource\Database\KvpDBConfigSource.cs" />
+    <Compile Include="Classes\ConfigSource\Database\SingleRecordDBConfigSource.cs" />
+    <Compile Include="Classes\ConfigSource\TextFileConfigSource.cs" />
     <Compile Include="Interfaces\IConfigProvider.cs" />
     <Compile Include="Interfaces\IConfigSource.cs" />
     <Compile Include="Interfaces\IConfig.cs" />
+    <Compile Include="Interfaces\IDatabase.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

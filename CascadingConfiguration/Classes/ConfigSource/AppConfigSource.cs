@@ -1,6 +1,11 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Reflection;
+using CascadingConfiguration;
+using CascadingConfiguration.Base_Classes;
 
-namespace CascadingConfiguration
+namespace CascadingConfiguration.Classes.ConfigSource
 {
     /// <summary>
     /// A relatively simple class that doesn't provide much functionality beyond what
@@ -11,16 +16,38 @@ namespace CascadingConfiguration
     /// <typeparam name="T"></typeparam>
     public class AppConfigSource<T> : ConfigSource<T> where T : IConfig, new()
     {
-        public AppConfigSource(int priority) : base(priority)
+
+        /// <summary>
+        /// <para>
+        /// Sets the properties in the IConfig object. The properties in the app config file
+        /// should match the names of the properties in the IConfig object.
+        /// </para>
+        /// <para>
+        /// Takes in properties unset by previous sources (or null/new HashSet if this is the first) and returns
+        /// any properties that are left over.
+        /// </para>
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="unsetProperties"></param>
+        /// <returns></returns>
+        public override HashSet<PropertyInfo> PopulateConfig(IConfig config,
+            HashSet<PropertyInfo> unsetProperties)
         {
+            if (unsetProperties is null || unsetProperties.Count is 0)
+                unsetProperties = config.GetType().GetProperties().ToHashSet();
+
+            foreach (var property in unsetProperties)
+            {
+                config.SetProperty(property, ConfigurationManager.AppSettings[property.Name]);
+
+                unsetProperties.Remove(property);
+            }
+
+            return unsetProperties;
         }
 
-        public override void PopulateConfig(IConfigProvider<T> configProvider)
+        public AppConfigSource(int priority) : base(priority)
         {
-            foreach (var property in typeof(Config).GetProperties())
-            {
-                configProvider.SetProperty(property, ConfigurationManager.AppSettings[property.Name]);
-            }
         }
     }
 }

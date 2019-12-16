@@ -1,7 +1,7 @@
 ﻿using System.Data.SqlClient;
-using System.Net.Http.Headers;
+using CascadingConfiguration;
 
-namespace CascadingConfiguration
+namespace CascadingConfiguration.Classes.ConfigSource.Database
 {
     public class Database : IDatabase
     {

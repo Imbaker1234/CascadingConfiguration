@@ -1,22 +1,15 @@
-﻿using System.Data.SqlClient;
+﻿using CascadingConfiguration;
 
-namespace CascadingConfiguration
+namespace CascadingConfiguration.Classes.ConfigSource.Database
 {
-    public abstract class DBConfigSource<T> : ConfigSource<T> where T : IConfig, new()
+    public abstract class DbConfigSource<T> : ConfigSource<T> where T : IConfig, new()
     { 
         public IDatabase Database { get; set; }
         public string Table { get; set; }
         public string IdColumn { get; set; }
 
-        /// <summary>
-        /// Sets the properties for the IConfig held in this class. If the 
-        /// </summary>
-        /// <returns></returns>
-        public abstract override void PopulateConfig(IConfigProvider<T> configProvider);
-
-        protected DBConfigSource(int priority = 2) : base(priority)
+        protected DbConfigSource(int priority) : base(priority)
         {
-            Priority = priority;
         }
     }
 }

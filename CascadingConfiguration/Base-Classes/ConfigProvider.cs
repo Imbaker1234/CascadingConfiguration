@@ -8,28 +8,18 @@ namespace CascadingConfiguration
     public abstract class ConfigProvider<T> : IConfigProvider<T> where T : IConfig, new()
     {
         public T Config { get; set; }
+        public List<PropertyInfo> InitializedProperties;
         public List<IConfigSource<T>> Sources { get; set; }
         public bool AllowIncompleteConfiguration { get; set; }
         public bool AllowMultipleSources { get; set; }
         public bool Cascade { get; set; }
-        public HashSet<string> ConfiguredProperties { get; set; }
-        public HashSet<string> UnconfiguredProperties { get; set; }
 
         protected ConfigProvider(List<IConfigSource<T>> sources, bool allowIncompleteConfiguration = true,
             bool cascade = true)
         {
             Sources = sources;
-            Sources.Sort(); //Sort sources based on greatest priority to least.
             AllowIncompleteConfiguration = allowIncompleteConfiguration;
             Cascade = cascade;
-            ConfiguredProperties = new List<string>();
-            UnconfiguredProperties = new List<string>();
-
-            foreach (var property in Config.GetType().GetProperties())
-            {
-                UnconfiguredProperties.Add(property.Name);
-            }
-
         }
 
         public void PopulateConfig()
@@ -50,27 +40,25 @@ namespace CascadingConfiguration
         /// </summary>
         private void SingleSourcePopulate()
         {
+            Sources.Sort();
+
+            var unsetProperties = typeof(T).GetProperties().ToHashSet();
+
             foreach (IConfigSource<T> source in Sources)
             {
-                source.PopulateConfig(this);
+                //Grab the config from the highest remaining priority source.
+                unsetProperties = source.PopulateConfig(Config, null);
 
-                if (UnconfiguredProperties.Any())
-                {
-                    //Since we are only allowing values from a single source
-                    //we clear out the config if we don't retrieve a full one.
-                    Config = new T();
-                    //Add any configured values back to to unconfigured values.
-                    UnconfiguredProperties.UnionWith(ConfiguredProperties);
-                }
-            }
+                //If you the configuration is fully populated return it.
+                if (unsetProperties.Count is 0)
+                    return;
 
-            //If after we are done going through all of the sources we don't have
-            //a fully populated config an exception is thrown.
-            if (UnconfiguredProperties.Any())
-            {
-                throw new Exception("All sources failed to provide a fully populated config.");
+                //Otherwise wipe it clean and try the next source.
+                unsetProperties = typeof(T).GetProperties().ToHashSet();
+                Config = new T();
             }
         }
+
 
         /// <summary>
         /// <para>
@@ -90,20 +78,16 @@ namespace CascadingConfiguration
         /// </summary>
         private void MultiSourcePopulate()
         {
+            var allProperties = typeof(T).GetProperties().ToHashSet();
+
             foreach (var source in Sources)
             {
-                //Iterating over each source which checks only for unset
-                //properties held in this class.
-                source.PopulateConfig(this);
+                source.PopulateConfig(Config, allProperties);
 
-                //While it won't overwrite any values this will prevent
-                //any unnecessary iteration over additional sources once
-                //we are fully configured.
-                if (!UnconfiguredProperties.Any())
-                {
-                    break; 
-                }
+                if (allProperties.Count is 0) return;
             }
+
+            if(!AllowIncompleteConfiguration) throw new Exception("Failed to fully populate configuration from all sources.");
         }
 
         public void CascadingPopulate()
@@ -115,35 +99,15 @@ namespace CascadingConfiguration
             Sources.Reverse();
             foreach (var source in Sources)
             {
-                //Iterating over each source which checks only for unset
-                //properties held in this class.
-                source.PopulateConfig(this);
+                //Iterating over each source in reverse priority, lowest
+                //to highest, providing null for unset properties so as
+                //to retrieve any and all values from each source.
+                //Allowing for the overwrite of values from lower priority
+                //sources with values from higher priority sources.
+                source.PopulateConfig(Config, null);
 
-                UnconfiguredProperties.UnionWith(ConfiguredProperties);
-                ConfiguredProperties.Clear();
+                if (!AllowIncompleteConfiguration) throw new Exception("Failed to fully populate configuration from all sources.");
             }
-        }
-
-        public void SetProperty(PropertyInfo property, string value)
-        {
-            //Get the type we need to cast to.
-            Enum.TryParse(property.PropertyType.Name, true, out TypeCode enumValue); //Get the type based on typecode
-            //Cast to that type
-            var convertedValue = Convert.ChangeType(value, enumValue); //Convert the value to that of the typecode
-            //Assign
-            property.SetValue(this, convertedValue); // Set the converted value
-
-            //Due to many primitives having default values simply null checking is not
-            //sufficient to determine whether a property has been set, has been set
-            //with the default value, or has not been set. 
-
-            UnconfiguredProperties.Remove(property.Name); // Remove property as unset.
-            ConfiguredProperties.Add(property.Name); // and mark it as set.
-        }
-
-        public void SetProperty(string property, string value)
-        {
-            SetProperty(Config.GetType().GetProperty(property), value);
         }
     }
 }

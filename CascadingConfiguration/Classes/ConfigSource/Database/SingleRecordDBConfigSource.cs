@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Linq;
+using System.Reflection;
+using CascadingConfiguration;
+using CascadingConfiguration.Base_Classes;
 
-namespace CascadingConfiguration
+namespace CascadingConfiguration.Classes.ConfigSource.Database
 {
-    public class SingleRecordDbConfigSource<T> : DBConfigSource<T> where T : IConfig, new()
+    public class SingleRecordDbConfigSource<T> : DbConfigSource<T> where T : IConfig, new()
     {
         public string IdentifyingValue { get; set; }
 
@@ -12,25 +15,30 @@ namespace CascadingConfiguration
         /// values are identical.
         /// </summary>
         /// <returns></returns>
-        public override void PopulateConfig(IConfigProvider<T> configProvider)
+        public override HashSet<PropertyInfo> PopulateConfig(IConfig config, HashSet<PropertyInfo> unsetProperties)
         {
+            if (unsetProperties is null || unsetProperties.Count is 0)
+                unsetProperties = config.GetType().GetProperties().ToHashSet();
+
             string sql = $"SELECT TOP(1)" +
                          $"FROM {Table}" +
                          $"WHERE {IdColumn} = '{IdentifyingValue}'";
 
             using (var reader = Database.QueryMultipleValues(sql))
             {
-                foreach (var property in configProvider.Config.GetType().GetProperties())
+                foreach (var property in config.GetType().GetProperties())
                 {
                     var value = reader[property.Name].ToString();
 
-                    if (value.Length > 0)
-                    {
-                        configProvider.SetProperty(property, value);
-                    }
+                    config.SetProperty(property, value);
+
+                    unsetProperties.Remove(property);
                 }
             }
+
+            return unsetProperties;
         }
+
 
         public SingleRecordDbConfigSource(int priority) : base(priority)
         {

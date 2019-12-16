@@ -1,6 +1,9 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using CascadingConfiguration.Base_Classes;
 
-namespace CascadingConfiguration
+namespace CascadingConfiguration.Classes.ConfigSource.Database
 {
     /// <summary>
     /// <para>
@@ -13,8 +16,8 @@ namespace CascadingConfiguration
     /// in the WHERE clause.
     /// </para>
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class KvpDBConfigSource<T> : DBConfigSource<T> where T : IConfig, new()
+    /// <typeparam name="ConfigProvider<T>"></typeparam>
+    public class KvpDBConfigSource<T> : DbConfigSource<T> where T : IConfig, new()
     {
         public string ValueColumn { get; set; }
 
@@ -24,29 +27,28 @@ namespace CascadingConfiguration
         /// found it skips the value.
         /// </summary>
         /// <returns></returns>
-        public override void PopulateConfig(IConfigProvider<T> configProvider)
+        public override HashSet<PropertyInfo> PopulateConfig(IConfig config, HashSet<PropertyInfo> unsetProperties)
         {
-            foreach (var property in configProvider.UnconfiguredProperties)
-            {
-                string key = property;
+            if (unsetProperties is null || unsetProperties.Count is 0)
+                unsetProperties = config.GetType().GetProperties().ToHashSet();
 
+            foreach (var property in unsetProperties)
+            {
                 string sql = $"SELECT {ValueColumn}" +
                              $"FROM {Table}" +
-                             $"WHERE {IdColumn} = '{key}'";
+                             $"WHERE {IdColumn} = '{property}'";
 
                 var value = Database.QuerySingleValue(sql);
 
-                // If the query returns a usable value.
-                if (value.Length > 0)
-                {
-                    configProvider.SetProperty(property, value);
-                }
+                config.SetProperty(property, value);
+
+                unsetProperties.Remove(property);
             }
-        }
+
+            return unsetProperties;
+    }
 
         public KvpDBConfigSource(int priority) : base(priority)
         {
-            Priority = priority;
         }
     }
-}

@@ -5,20 +5,11 @@ using System.Runtime.CompilerServices;
 
 namespace CascadingConfiguration
 {
-    public abstract class ConfigSource<T> : IComparable, IConfigSource<IConfig> where T : IConfigProvider<IConfig>, new()
+    public abstract class ConfigSource<T> : IComparable, IConfigSource<IConfig> where T : IConfig, new()
     {
         public int Priority { get; set; }
 
-        public List<PropertyInfo> PopulateConfig(IConfig config)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<PropertyInfo> PopulateConfig(IConfig config, List<PropertyInfo> unsetProperties)
-        {
-            throw new NotImplementedException();
-        }
-
+        public abstract HashSet<PropertyInfo> PopulateConfig(IConfig config, HashSet<PropertyInfo> unsetProperties);
 
         protected ConfigSource(int priority)
         {

@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace CascadingConfiguration
 {
-    public interface IConfig : INotifyPropertyChanged
+    public interface IConfig
     {
 
     }

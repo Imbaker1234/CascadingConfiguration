@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using FluentAssertions;
-using CascadingConfiguration;
-using Moq;
-using NUnit.Framework;
-using Sample;
+﻿using NUnit.Framework;
 
 namespace HierarchicalConfigurationTests
 {

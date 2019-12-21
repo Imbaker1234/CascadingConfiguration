@@ -16,3 +16,6 @@ C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.csproj.CoreCompil
 C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.csproj.CopyComplete
 C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.dll
 C:\Users\Imbaker1234\source\repos\HCFG\Sample\obj\Debug\Sample.pdb
+C:\Users\Admin\Source\Repos\CascadingConfiguration\Sample\obj\Debug\Sample.csprojAssemblyReference.cache
+C:\Users\Admin\Source\Repos\CascadingConfiguration\Sample\obj\Debug\Sample.dll
+C:\Users\Admin\Source\Repos\CascadingConfiguration\Sample\obj\Debug\Sample.pdb

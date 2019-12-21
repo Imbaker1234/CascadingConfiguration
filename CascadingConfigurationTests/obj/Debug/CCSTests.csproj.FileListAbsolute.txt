@@ -1,0 +1,3 @@
+C:\Users\Admin\Source\Repos\CascadingConfiguration\CascadingConfigurationTests\obj\Debug\CCSTests.csprojAssemblyReference.cache
+C:\Users\Admin\Source\Repos\CascadingConfiguration\CascadingConfigurationTests\obj\Debug\HierarchicalConfigurationTests.dll
+C:\Users\Admin\Source\Repos\CascadingConfiguration\CascadingConfigurationTests\obj\Debug\HierarchicalConfigurationTests.pdb

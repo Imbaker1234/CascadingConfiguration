@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CascadingConfiguration", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "..\Sample\Sample.csproj", "{CDAA759B-A774-4901-BCB6-81897762F19C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HierarchicalConfigurationTests", "..\CascadingConfigurationTests\HierarchicalConfigurationTests.csproj", "{7BFC87FC-CECA-4AED-B818-8809B9569797}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSTests", "..\CascadingConfigurationTests\CCSTests.csproj", "{7BFC87FC-CECA-4AED-B818-8809B9569797}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

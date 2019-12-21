@@ -2,12 +2,18 @@
 
 namespace CascadingConfiguration
 {
-    public interface IDatabase
+    public abstract class Database
     {
-        string ConnectionString { get; set; }
+        private string _connectionString;
 
-        string QuerySingleValue(string sql);
+        public string ConnectionString
+        {
+            get => null; //This object should not distribute sensitive information.
+            set => _connectionString = value;
+        }
 
-        SqlDataReader QueryMultipleValues(string sql);
+        public abstract string QuerySingleValue(string sql);
+
+        public abstract SqlDataReader QueryMultipleValues(string sql);
     }
 }

@@ -1,0 +1,3 @@
+C:\Users\Admin\Source\Repos\CascadingConfiguration\CascadingConfiguration\obj\Debug\CascadingConfiguration.csprojAssemblyReference.cache
+C:\Users\Admin\Source\Repos\CascadingConfiguration\CascadingConfiguration\obj\Debug\HeirachicalConfiguration.dll
+C:\Users\Admin\Source\Repos\CascadingConfiguration\CascadingConfiguration\obj\Debug\HeirachicalConfiguration.pdb

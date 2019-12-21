@@ -9,16 +9,16 @@ namespace Sample
 {
     public class SampleConfig : IConfig
     {
-        private bool? TwentyPercentDiscount = false;
+        public bool? TwentyPercentDiscount = false;
 
-        private byte? outOfCrime = null;
+        public byte? outOfCrime = null;
 
-        private char? isFor = null;
+        public char? isFor = null;
 
-        private short? babyNumber = null;
+        public short? babyNumber = null;
         
-        private string customerName = null;
+        public string customerName = null;
 
-        private DateTime? dateVal = DateTime.Now;
+        public DateTime? dateVal = DateTime.Now;
     }
 }

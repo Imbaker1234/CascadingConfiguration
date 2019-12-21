@@ -5,26 +5,35 @@ using System.Reflection;
 
 namespace CascadingConfiguration
 {
-    public abstract class ConfigProvider<T> : IConfigProvider<T> where T : IConfig, new()
+    public class ConfigProvider<T> : IConfigProvider<T> where T : IConfig, new()
     {
         public T Config { get; set; }
         public List<PropertyInfo> InitializedProperties;
         public List<IConfigSource<T>> Sources { get; set; }
         public bool AllowIncompleteConfiguration { get; set; }
-        public bool AllowMultipleSources { get; set; }
-        public bool Cascade { get; set; }
 
-        protected ConfigProvider(List<IConfigSource<T>> sources, bool allowIncompleteConfiguration = true,
-            bool cascade = true)
-        {
-            Sources = sources;
-            AllowIncompleteConfiguration = allowIncompleteConfiguration;
-            Cascade = cascade;
+        public ConfigProvider(params IConfigSource<T>[] sources)
+        { 
+            Sources = new List<IConfigSource<T>>();
+            
+            foreach (var configSource in sources)
+            {
+                Sources.Add(configSource);
+            }
+
+            AllowIncompleteConfiguration = true;
         }
 
-        public void PopulateConfig()
+        public ConfigProvider(List<IConfigSource<T>> sources)
         {
-            Config = new T();
+            Sources = sources;
+            AllowIncompleteConfiguration = true;
+        }
+
+        public ConfigProvider()
+        {
+            Sources = new List<IConfigSource<T>>();
+            AllowIncompleteConfiguration = true;
         }
 
         /// <summary>
@@ -38,8 +47,10 @@ namespace CascadingConfiguration
         /// a fully populated config.
         /// </para>
         /// </summary>
-        private void SingleSourcePopulate()
+        public void SingleSourcePopulate()
         {
+            Config = new T();
+
             Sources.Sort();
 
             var unsetProperties = typeof(T).GetProperties().ToHashSet();
@@ -59,7 +70,6 @@ namespace CascadingConfiguration
             }
         }
 
-
         /// <summary>
         /// <para>
         /// Populates the configuration. Pulling as many values
@@ -76,8 +86,10 @@ namespace CascadingConfiguration
         /// will be thrown.
         /// </para>
         /// </summary>
-        private void MultiSourcePopulate()
+        public void MultiSourcePopulate()
         {
+            Config = new T();
+
             var allProperties = typeof(T).GetProperties().ToHashSet();
 
             foreach (var source in Sources)
@@ -90,11 +102,15 @@ namespace CascadingConfiguration
             if(!AllowIncompleteConfiguration) throw new Exception("Failed to fully populate configuration from all sources.");
         }
 
+        /// <summary>
+        /// Starts the process from lowest priority and works our way
+        /// up. Allowing higher priority sources to overwrite properties
+        /// set by those of lower priority sources.
+        /// </summary>
         public void CascadingPopulate()
         {
-            //Starts the process from lowest priority and works our way
-            //up. Allowing higher priority sources to overwrite properties
-            //set by those of lower priority sources.
+            Config = new T();
+
             Sources.Sort();
             Sources.Reverse();
             foreach (var source in Sources)

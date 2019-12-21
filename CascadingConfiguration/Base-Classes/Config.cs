@@ -16,10 +16,5 @@ namespace CascadingConfiguration
 
             return sb.ToString();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            //TODO DO THE STUFF HERE!!!!
-        }
     }
 }

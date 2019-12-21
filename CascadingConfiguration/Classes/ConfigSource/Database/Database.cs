@@ -3,9 +3,14 @@ using CascadingConfiguration;
 
 namespace CascadingConfiguration.Classes.ConfigSource.Database
 {
-    public class Database : IDatabase
+    public class Database
     {
         public string ConnectionString { get; set; }
+
+        public Database(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
 
         public string QuerySingleValue(string sql)
         {

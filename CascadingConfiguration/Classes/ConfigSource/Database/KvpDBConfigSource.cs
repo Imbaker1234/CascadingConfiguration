@@ -17,7 +17,7 @@ namespace CascadingConfiguration.Classes.ConfigSource.Database
     /// </para>
     /// </summary>
     /// <typeparam name="ConfigProvider<T>"></typeparam>
-    public class KvpDBConfigSource<T> : DbConfigSource<T> where T : IConfig, new()
+    public class KvpDbConfigSource<T> : DbConfigSource<T> where T : IConfig, new()
     {
         public string ValueColumn { get; set; }
 
@@ -46,9 +46,11 @@ namespace CascadingConfiguration.Classes.ConfigSource.Database
             }
 
             return unsetProperties;
-    }
+        }
 
-        public KvpDBConfigSource(int priority) : base(priority)
+        public KvpDbConfigSource(string connectionString, string table, int priority) : base(connectionString, table, priority)
         {
+            
         }
     }
+}

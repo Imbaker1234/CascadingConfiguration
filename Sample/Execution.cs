@@ -3,6 +3,7 @@ using System.Configuration;
 using CascadingConfiguration;
 using CascadingConfiguration.Classes.ConfigSource;
 using CascadingConfiguration.Classes.ConfigSource.Database;
+using CascadingConfiguration.Extensions;
 
 namespace Sample
 {
@@ -34,8 +35,6 @@ namespace Sample
             //throw an exception if they fail to populate over the course of iterating across our ConfigSources.
 
             cfgProvider.CascadingPopulate();
-
-            var KingKrab = cfgProvider.Config;
         }
     }
 }

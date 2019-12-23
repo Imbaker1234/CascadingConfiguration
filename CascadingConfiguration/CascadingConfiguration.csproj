@@ -8,10 +8,11 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HeirachicalConfiguration</RootNamespace>
-    <AssemblyName>HeirachicalConfiguration</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <AssemblyName>CascadingConfiguration</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SQLxt">
+      <HintPath>..\..\SQLxt\SQLxt\bin\Debug\SQLxt.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -47,15 +51,13 @@
     <Compile Include="Base-Classes\Config.cs" />
     <Compile Include="Base-Classes\ConfigProvider.cs" />
     <Compile Include="Classes\ConfigSource\ConfigSource.cs" />
-    <Compile Include="Classes\ConfigSource\Database\DBConfigSource.cs" />
-    <Compile Include="Classes\ConfigSource\Database\Database.cs" />
-    <Compile Include="Classes\ConfigSource\Database\KvpDBConfigSource.cs" />
-    <Compile Include="Classes\ConfigSource\Database\SingleRecordDBConfigSource.cs" />
+    <Compile Include="Base-Classes\DBConfigSource.cs" />
+    <Compile Include="Classes\ConfigSource\KvpDBConfigSource.cs" />
+    <Compile Include="Classes\ConfigSource\SingleRecordDBConfigSource.cs" />
     <Compile Include="Classes\ConfigSource\TextFileConfigSource.cs" />
     <Compile Include="Interfaces\IConfigProvider.cs" />
     <Compile Include="Interfaces\IConfigSource.cs" />
     <Compile Include="Interfaces\IConfig.cs" />
-    <Compile Include="Interfaces\IDatabase.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

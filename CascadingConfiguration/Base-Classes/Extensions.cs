@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CascadingConfiguration.Base_Classes
+namespace CascadingConfiguration.Extensions
 {
     public static class Extensions
     {
@@ -59,6 +56,52 @@ namespace CascadingConfiguration.Base_Classes
             property.SetValue(config, convertedValue); // Set the converted value
 
             return property.Name;
+        }
+
+        /// <summary>
+        /// Add multiple sources directory the list of sources for this ConfigProvider.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="sources"></param>
+        public static void Add(this IConfigProvider<IConfig> provider, params IConfigSource<IConfig>[] sources)
+        {
+            foreach (var source in sources)
+            {
+                provider.Add(source);
+            }
+        }
+
+        /// <summary>
+        /// Add a single source to this ConfigProvider.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="source"></param>
+        public static void Add(this IConfigProvider<IConfig> provider, IConfigSource<IConfig> source)
+        {
+            provider.Sources.Add(source);
+        }
+
+        /// <summary>
+        /// Remove multiple sources from this ConfigProvider.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="sources"></param>
+        public static void Remove(this IConfigProvider<IConfig> provider, IConfigSource<IConfig>[] sources)
+        {
+            foreach (var source in sources)
+            {
+                provider.Remove(source);
+            }
+        }
+
+        /// <summary>
+        /// Remove a single source from this ConfigProvider.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="source"></param>
+        public static void Remove(this IConfigProvider<IConfig> provider, IConfigSource<IConfig> source)
+        {
+            provider.Sources.Remove(source);
         }
     }
 }

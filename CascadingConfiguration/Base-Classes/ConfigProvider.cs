@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace CascadingConfiguration
@@ -8,31 +7,21 @@ namespace CascadingConfiguration
     public class ConfigProvider<T> : IConfigProvider<T> where T : IConfig, new()
     {
         public T Config { get; set; }
-        public List<PropertyInfo> InitializedProperties;
         public List<IConfigSource<T>> Sources { get; set; }
         public bool AllowIncompleteConfiguration { get; set; }
 
         public ConfigProvider(params IConfigSource<T>[] sources)
-        { 
+        {
             Sources = new List<IConfigSource<T>>();
-            
-            foreach (var configSource in sources)
+
+            foreach (var source in sources)
             {
-                Sources.Add(configSource);
+                if (source.Initialize())
+                {
+                    Sources.Add(source);
+                }
             }
 
-            AllowIncompleteConfiguration = true;
-        }
-
-        public ConfigProvider(List<IConfigSource<T>> sources)
-        {
-            Sources = sources;
-            AllowIncompleteConfiguration = true;
-        }
-
-        public ConfigProvider()
-        {
-            Sources = new List<IConfigSource<T>>();
             AllowIncompleteConfiguration = true;
         }
 
@@ -53,7 +42,7 @@ namespace CascadingConfiguration
 
             Sources.Sort();
 
-            var unsetProperties = typeof(T).GetProperties().ToHashSet();
+            var unsetProperties = new HashSet<PropertyInfo>(typeof(T).GetProperties());
 
             foreach (IConfigSource<T> source in Sources)
             {
@@ -65,7 +54,7 @@ namespace CascadingConfiguration
                     return;
 
                 //Otherwise wipe it clean and try the next source.
-                unsetProperties = typeof(T).GetProperties().ToHashSet();
+                unsetProperties = new HashSet<PropertyInfo>(typeof(T).GetProperties());
                 Config = new T();
             }
         }
@@ -90,7 +79,7 @@ namespace CascadingConfiguration
         {
             Config = new T();
 
-            var allProperties = typeof(T).GetProperties().ToHashSet();
+            var allProperties = new HashSet<PropertyInfo>(typeof(T).GetProperties());
 
             foreach (var source in Sources)
             {

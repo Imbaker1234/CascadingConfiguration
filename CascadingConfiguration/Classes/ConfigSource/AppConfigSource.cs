@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
+using System.IO;
 using System.Reflection;
-using CascadingConfiguration;
-using CascadingConfiguration.Base_Classes;
+using CascadingConfiguration.Extensions;
 
 namespace CascadingConfiguration.Classes.ConfigSource
 {
@@ -16,6 +16,21 @@ namespace CascadingConfiguration.Classes.ConfigSource
     /// <typeparam name="T"></typeparam>
     public class AppConfigSource<T> : ConfigSource<T> where T : IConfig, new()
     {
+        public override bool Initialize()
+        {
+            if (!File.Exists(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile)) return false;
+
+            try
+            {
+                Priority = int.Parse(ConfigurationManager.AppSettings["CCSPriority"]);
+            }
+            catch (Exception)
+            {
+                //Ignored
+            }
+
+            return true;
+        }
 
         /// <summary>
         /// <para>
@@ -34,7 +49,7 @@ namespace CascadingConfiguration.Classes.ConfigSource
             HashSet<PropertyInfo> unsetProperties)
         {
             if (unsetProperties is null || unsetProperties.Count is 0)
-                unsetProperties = config.GetType().GetProperties().ToHashSet();
+                unsetProperties = new HashSet<PropertyInfo>(config.GetType().GetProperties());
 
             foreach (var property in unsetProperties)
             {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using CascadingConfiguration;
-using CascadingConfiguration.Base_Classes;
+using CascadingConfiguration.Extensions;
 
 namespace CascadingConfiguration.Classes.ConfigSource
 {
@@ -18,22 +17,6 @@ namespace CascadingConfiguration.Classes.ConfigSource
         {
             FilePath = filePath;
             Delimiter = delimiter;
-        }
-
-        public Dictionary<string, string> ConfigToDictionary(string filePath, char delimiter = '=')
-        {
-            var product = new Dictionary<string, string>();
-
-            foreach (var line in File.ReadAllLines(FilePath))
-            {
-                var key = line.Split(delimiter)[0];
-
-                var value = line.Split(delimiter)[1];
-
-                product.Add(key, value);
-            }
-
-            return product;
         }
 
         /// <summary>
@@ -52,9 +35,9 @@ namespace CascadingConfiguration.Classes.ConfigSource
         public override HashSet<PropertyInfo> PopulateConfig(IConfig config, HashSet<PropertyInfo> unsetProperties)
         {
             if (unsetProperties is null || unsetProperties.Count is 0)
-                unsetProperties = config.GetType().GetProperties().ToHashSet();
+                unsetProperties = new HashSet<PropertyInfo>(config.GetType().GetProperties());
 
-            var sourceInfo = ConfigToDictionary(FilePath, Delimiter);
+            var sourceInfo = FileToDictionary(FilePath, Delimiter);
 
             foreach (var unsetProperty in unsetProperties)
             {
@@ -74,23 +57,39 @@ namespace CascadingConfiguration.Classes.ConfigSource
                     config.SetProperty(key, value);
                     unsetProperties.Remove(unsetProperty);
                 }
-                catch (NullReferenceException nre)
+                catch (NullReferenceException)
                 {
-                    var sb = new StringBuilder();
-
-                    sb.Append(Environment.NewLine);
-
-                    foreach (var property in typeof(T).GetProperties())
-                    {
-                        sb.Append($"{property}{Environment.NewLine}");
-                    }
-
-                    throw new NullReferenceException(
-                        $"{typeof(IConfig)}.{key} is not a valid property in this configuration. Valid properties are: {sb}");
+                    //If it doesn't match a property in our config we don't add it.
                 }
             }
 
             return unsetProperties;
+        }
+
+        public override bool Initialize()
+        {
+            return File.Exists(FilePath);
+        }
+
+        /// <summary>
+        /// Converts a string to a Dictionary by separating it into 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="delimiter"></param>
+        /// <returns></returns>
+        public Dictionary<string, string> FileToDictionary(string filePath, char delimiter = '=')
+        {
+            var product = new Dictionary<string, string>();
+
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                var key = line.Split(delimiter)[0];
+
+                var value = line.Split(delimiter)[1];
+
+                product.Add(key, value);
+            }
+            return product;
         }
     }
 }

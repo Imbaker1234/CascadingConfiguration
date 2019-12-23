@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace CascadingConfiguration
 {
     public abstract class ConfigSource<T> : IComparable, IConfigSource<IConfig> where T : IConfig, new()
     {
         public int Priority { get; set; }
-
+        public abstract bool Initialize();
         public abstract HashSet<PropertyInfo> PopulateConfig(IConfig config, HashSet<PropertyInfo> unsetProperties);
-
         protected ConfigSource(int priority)
         {
             Priority = priority;

@@ -7,7 +7,7 @@
     <ProjectGuid>{01B4F3C0-A65E-43F3-B788-805DB1CCA433}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HeirachicalConfiguration</RootNamespace>
+    <RootNamespace>CascadingConfiguration</RootNamespace>
     <AssemblyName>CascadingConfiguration</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -46,15 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base-Classes\Extensions.cs" />
-    <Compile Include="Classes\ConfigSource\AppConfigSource.cs" />
-    <Compile Include="Base-Classes\Config.cs" />
-    <Compile Include="Base-Classes\ConfigProvider.cs" />
-    <Compile Include="Classes\ConfigSource\ConfigSource.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Sources\AppConfigSource.cs" />
+    <Compile Include="Core\Config.cs" />
+    <Compile Include="Core\ConfigProvider.cs" />
+    <Compile Include="Base-Classes\ConfigSource.cs" />
     <Compile Include="Base-Classes\DBConfigSource.cs" />
-    <Compile Include="Classes\ConfigSource\KvpDBConfigSource.cs" />
-    <Compile Include="Classes\ConfigSource\SingleRecordDBConfigSource.cs" />
-    <Compile Include="Classes\ConfigSource\TextFileConfigSource.cs" />
+    <Compile Include="Sources\KvpDBConfigSource.cs" />
+    <Compile Include="Sources\SingleRecordDBConfigSource.cs" />
+    <Compile Include="Sources\TextFileConfigSource.cs" />
     <Compile Include="Interfaces\IConfigProvider.cs" />
     <Compile Include="Interfaces\IConfigSource.cs" />
     <Compile Include="Interfaces\IConfig.cs" />

@@ -1,7 +1,6 @@
-﻿using CascadingConfiguration;
-using SQLxt;
+﻿using SQLxt;
 
-namespace CascadingConfiguration.Classes.ConfigSource.Database
+namespace CascadingConfiguration
 {
     public abstract class DbConfigSource<T> : ConfigSource<T> where T : IConfig, new()
     { 
